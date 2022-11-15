@@ -7,14 +7,14 @@ The command line interface tool to encrypt and decrypt using 'Rotate by N Places
 - [GNU Make 3.0 or higher](https://www.gnu.org/software/make/)
 
 ## **Using the CLI**
-1. Download **package** from [latest Continuous Delivery run](https://github.com/renanphellip/rot-cli/actions/workflows/cd.yml)
+1. Download **package** from [latest Continuous Delivery run](https://github.com/renanphellip/rot-cli/actions/workflows/cd.yml).
 
 1. Extract **rot-cli.tgz** package:
     ```shell
     $ tar -xf rot-cli.tgz
     ```
 
-1. Access **rot-cli** folder that was extracted:
+1. Access the **rot-cli** folder:
 
 1. Run the following command:
     ```shell
@@ -25,6 +25,11 @@ The command line interface tool to encrypt and decrypt using 'Rotate by N Places
     ```shell
     $ rot --help
     ```
+
+## **Using the CLI via Docker**
+```shell
+$ docker run renanphellip/rot --help
+```
 
 ## **Install and Test Project**
 1. `make install`
