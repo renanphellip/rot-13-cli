@@ -17,7 +17,8 @@ jobs:
 
         - name: Checkout repository
           uses: actions/checkout@v3
-          path: ${{ github.event.repository.name }}
+          with:
+            path: ${{ github.event.repository.name }}
 
         - name: Install Poetry
           uses: snok/install-poetry@v1
