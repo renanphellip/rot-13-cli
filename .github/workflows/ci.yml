@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  ci:
-    name: Continuous Integration
+  ci-package:
+    name: Build Package
     runs-on: ubuntu-latest
     steps:
         - name: Checkout repository
@@ -42,3 +42,27 @@ jobs:
 
         - name: Check dependencies vulnerabilities
           run: poetry run make sec
+
+  ci-docker-image:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Build image
+        run: docker build -t renanphellip/rot:latest .
+    
+      - name: Scan image
+        uses: snyk/actions/docker@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: renanphellip/rot:latest
+          args: --file=Dockerfile --severity-threshold=high
+
+      - name: Publish scan result
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
