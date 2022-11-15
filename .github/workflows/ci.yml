@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  ci:
-    name: Continuous Integration
+    ci-package:
+    name: Build Package
     runs-on: ubuntu-latest
     steps:
         - name: Checkout repository
@@ -42,3 +42,30 @@ jobs:
 
         - name: Check dependencies vulnerabilities
           run: poetry run make sec
+
+  ci-docker-image:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Build image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false
+          tags: renanphellip/rot:latest
+    
+      - name: Scan image
+        uses: azure/container-scan@v0
+        with:
+          image-name: renanphellip/rot:latest
+          severity-threshold: HIGH
+          run-quality-checks: true
