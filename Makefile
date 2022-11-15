@@ -1,7 +1,10 @@
-.PHONY: install format lint test sec
+.PHONY: install prod format lint test sec config
 
 install:
-	@poetry install
+	@poetry install --no-interaction
+	@poetry shell
+prod:
+	@poetry install --no-interaction --without dev
 	@poetry shell
 format:
 	@isort .
@@ -16,4 +19,4 @@ sec:
 	@safety check
 config:
 	@poetry config virtualenvs.in-project true --local
-	@make install
+	@make prod

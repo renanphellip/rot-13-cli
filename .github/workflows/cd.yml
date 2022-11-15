@@ -47,3 +47,4 @@ jobs:
           with:
             name: package
             path: ${{ github.event.repository.name }}.tgz
+            retention-days: 30
