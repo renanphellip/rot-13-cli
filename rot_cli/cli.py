@@ -1,6 +1,7 @@
 from typing import Optional
 
 import typer
+
 from rot_cli.core import decrypt, encrypt
 
 cli = typer.Typer(help='Rotate by N Places CLI', no_args_is_help=True)
